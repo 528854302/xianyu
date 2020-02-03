@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="xianyu_gateway_80" />
+        <module name="xianyu_interface" />
+        <module name="xianyu_pojo" />
+        <module name="xianyu_product_8081" />
+        <module name="xianyu_registry_10086" />
+        <module name="xianyu_user_8082" />
+        <module name="xianyu_web_8080" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="xianyu_auth_8087" target="1.8" />
+      <module name="xianyu_gateway" target="1.8" />
+      <module name="xianyu_item" target="1.8" />
+      <module name="xianyu_item_interface" target="1.8" />
+      <module name="xianyu_item_service" target="1.8" />
+      <module name="xianyu_product" target="1.8" />
+      <module name="xianyucommon" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

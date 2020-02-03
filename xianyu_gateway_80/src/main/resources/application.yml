@@ -1,0 +1,31 @@
+server:
+  port: 80
+spring:
+  application:
+    name: gateway
+  thymeleaf:
+    cache: false
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+      instance:
+        lease-renewal-interval-in-seconds: 5 # 5秒钟发送一次心跳
+        lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+zuul:
+  routes:
+    product.serviceId: product-service
+    product.path: /api/product/**    #将服务名改一个名字代替服务名
+    portal.serviceId: portal-service
+    portal.path: /portal/**    #将服务名改一个名字代替服务名
+    user.serviceId: user-service
+    user.path: /api/user/**
+  ignored-services: "*"    #隐藏所有真实微服务路径
+  host:
+    connect-timeout-millis: 3000
+    socket-timeout-millis: 3000
+  ribbon:
+    ReadTimeout: 3000
+    ConnectTimeout: 3000
+
+

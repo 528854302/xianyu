@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body style="background-color: rgb(220, 253, 253);">
+<div id="app">
+    <el-row>
+        <el-col :span="24">
+            <el-menu :default-active="2" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+                <el-menu-item index="1"><a href="/portal/index" target="_blank"><i class="el-icon-eleme">首页</i></a></el-menu-item>
+                <el-menu-item index="2"><a href="/portal/login" target="_blank"><i class="el-icon-user-solid">登录</i></a></el-menu-item>
+                <el-menu-item index="3"><a href="/portal/register" target="_blank"><i class="el-icon-user">注册</i></a></el-menu-item>
+                <el-menu-item index="4"><a href="/portal/collet" target="_blank"><i class="el-icon-star-on">收藏</i></a></el-menu-item>
+
+            </el-menu>
+            <div class="line"></div>
+        </el-col>
+    </el-row>
+    <el-row style="margin-top: 20px;">
+        <el-col :span="18">
+           <form action="/portal/checkUser" method="post">
+               学号:<input type="text" name="username">
+               密码：<input type="password" name="password">
+               <input type="submit" name="登录">
+           </form>
+        </el-col>
+    </el-row>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/getUrlParam.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+
+    })
+</script>
+</html>

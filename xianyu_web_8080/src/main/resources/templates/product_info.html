@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情页</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body style="background-color: rgb(220, 253, 253);">
+<div id="app">
+    <el-row>
+        <el-col :span="24">
+            <el-menu  class="el-menu-demo" mode="horizontal" @select="handleSelect">
+                <el-menu-item index="1"><a href="/index" target="_blank"><i class="el-icon-eleme">首页</i></a></el-menu-item>
+                <el-menu-item index="2"><a href="/login" target="_blank"><i class="el-icon-user-solid">登录</i></a></el-menu-item>
+                <el-menu-item index="3"><a href="/register" target="_blank"><i class="el-icon-user">注册</i></a></el-menu-item>
+                <el-menu-item index="4"><a href="/collet" target="_blank"><i class="el-icon-star-on">收藏</i></a></el-menu-item>
+            </el-menu>
+            <div class="line"></div>
+        </el-col>
+    </el-row>
+    <el-row >
+        <el-col :span=14 align="center">
+            <img src="1.jpg" alt="" style="width: 350px;height: 500px;margin: 10px;">
+        </el-col>
+        <el-col :span=10>
+            <div><h3>{{product.pname}}</h3></div>
+            <div>转  卖  价:<h3 style="color: rgb(216, 52, 12);">￥{{product.price}}</h3></div>
+            <div>成色：{{product.level}}成新</div>
+            <p>描述{{product.pinfo}}</p>
+            <el-button type="warning" v-on:click="buy">立即购买</el-button>
+        </el-col>
+    </el-row>
+
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/getUrlParam.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+        }
+        ,
+        data() {
+            return {
+                product:{
+                    pid:null,
+                    pname:null,
+                    level:null,
+                    price:null,
+                    category:null,
+                    pinfo:null,
+                    image:null,
+                    time:null,
+                    sno:null
+                },
+                username:null
+            }
+        },
+        methods: {
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            buy(){
+                location.href="http://localhost/portal/buy?pid="+this.product.pid+"&sno="+this.product.sno;
+            }
+        },
+        mounted(){//页面初始化方法
+            var pid = getQueryVariable("pid");
+            axios.get('http://localhost:80/api/product/findById/'+pid)
+                .then(Response =>(this.product = Response.data));
+
+            axios.get('http://localhost:80/getUsername')
+                .then(Response =>(this.username = Response.data));
+        }
+    })
+
+
+
+</script>
+</html>
