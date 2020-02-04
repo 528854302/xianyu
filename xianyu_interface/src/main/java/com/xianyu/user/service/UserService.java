@@ -5,5 +5,8 @@ import com.xianyu.pojo.User;
 public interface UserService {
     User findByUsername(String username);
 
-    User selectOne(User user);
+
+    User findBySno(String sno);
+
+    User selectOne(User user );
 }

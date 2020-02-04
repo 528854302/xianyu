@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 public class UserInfoServiceImpl {
     @Autowired
     UserClient userClient;
+    User user;
+    Authentication authentication;
+
 
     public UserInfo getUserInfo(HttpServletRequest request, HttpServletResponse response){
         String userJson = CookieUtils.getCookieValue(request, "userinfo");
@@ -28,32 +32,38 @@ public class UserInfoServiceImpl {
             userInfo = (UserInfo) JSONObject.parse(userJson);
             return userInfo;
         }
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null){
-            if (authentication instanceof AnonymousAuthenticationToken){
-                return null;
-            }
-            if (authentication instanceof UsernamePasswordAuthenticationToken){
-                User user = (User)authentication.getPrincipal();
-                com.xianyu.pojo.User user1= userClient.selectOne(user.getUsername());
-                userInfo = new UserInfo(user1);
-                CookieUtils.setCookie(request,response,"userinfo",JSONObject.toJSONString(userInfo));
-                return userInfo;
-            }
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication==null){
+            return null;
         }
-        return null;
+        if (userInfo==null){
+            getUser();
+        }
+        userInfo = new UserInfo(userClient.selectBySno(user.getUsername()));
+        CookieUtils.setCookie(request,response,"userinfo",JSONObject.toJSONString(userInfo));
+        return userInfo;
     }
 
 
-    public String getUsername(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    public String getUserSno(){
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (this.authentication == null){
+            return null;
+        }
+        if (user == null){
+            getUser();
+        }
+        return user.getUsername();
+    }
+
+    public User getUser(){
         if (authentication != null){
             if (authentication instanceof AnonymousAuthenticationToken){
                 return null;
             }
             if (authentication instanceof UsernamePasswordAuthenticationToken){
-                User user = (User)authentication.getPrincipal();
-                return user.getUsername();
+                user = (User)authentication.getPrincipal();
+                return user;
             }
         }
         return null;

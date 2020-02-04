@@ -10,9 +10,7 @@ import com.xianyu.pojo.User;
 @FeignClient(value = "user-service")
 public interface UserClient {
 
-    @GetMapping("/selectByUsername/{username}")
-    User selectByUsername(@PathVariable("username") String username);
+    @GetMapping("/selectBySno/{sno}")
+    User selectBySno(@PathVariable("sno") String sno);
 
-    @GetMapping("/selectOne/{username}")
-    public User selectOne(@PathVariable("username") String username);
 }

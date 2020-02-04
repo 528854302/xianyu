@@ -16,7 +16,7 @@ public class TestUserClient {
     UserClient userClient;
     @Test
     public void test(){
-        User user = userClient.selectByUsername("2017101866");
+        User user = userClient.selectBySno("2017101866");
         System.out.println(user.getPassword());
     }
 }

@@ -8,8 +8,9 @@ public class Result<T> implements Serializable {
     private String message;
     private List<T> data;
 
-    public Result(Integer code) {
-        this.code = code;
+    public Result() {
+        this.code = 200;
+        this.message = "操作成功";
     }
 
 

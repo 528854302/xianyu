@@ -52,8 +52,8 @@ public class ProductServiceImpl implements ProductService {
         product.setTime(new Date());
         int i = mapper.insert(product);
         if (i==0){
-            return new Result(CommonCode.FAILED,"操作失败");
+            return new Result(404,"操作失败");
         }
-        else{ return new Result(CommonCode.OK);}
+        else{ return new Result();}
     }
 }

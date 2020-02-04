@@ -10,14 +10,9 @@ public class UserController {
     @Autowired
     UserServiceImpl userService;
 
-    @GetMapping("/selectByUsername/{username}")
-    public User findByUserName(@PathVariable("username") String username){
-        return userService.findByUsername(username);
+    @GetMapping("/selectBySno/{sno}")
+    public User findByUserName(@PathVariable("sno") String sno){
+        return userService.findBySno(sno);
     }
-    @GetMapping("/selectOne/{username}")
-    public User selectOne(@PathVariable("username") String username){
-        User user = new User();
-        user.setUsername(username);
-        return userService.selectOne(user);
-    }
+
 }

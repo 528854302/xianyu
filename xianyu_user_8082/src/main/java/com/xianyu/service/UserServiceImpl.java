@@ -16,9 +16,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
+        return SelectOneByProperty("username",username);
+    }
+
+    @Override
+    public User findBySno(String sno) {
+        return SelectOneByProperty("sno",sno);
+    }
+
+    @Override
+    public User selectOne(User user) {
+        return userMapper.selectOne(user);
+    }
+
+
+    public User SelectOneByProperty(String property,String value){
         Example example = new Example(User.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("sno",username);
+        criteria.andEqualTo(property.toString(),value);
         List<User> list = userMapper.selectByExample(example);
         if (list.size()>0){
             return list.get(0);
@@ -27,8 +42,4 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public User selectOne(User user) {
-        return userMapper.selectOne(user);
-    }
 }

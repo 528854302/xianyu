@@ -31,8 +31,8 @@ public class SecurityController {
         return userInfoService.getUserInfo(request,response);
     }
 
-    @GetMapping("getUsername")
+    @GetMapping("getUserSno")
     public String getUsername(){
-        return userInfoService.getUsername();
+        return userInfoService.getUserSno();
     }
 }

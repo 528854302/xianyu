@@ -12,7 +12,7 @@
         <el-form-item label="商品名称" prop="pname">
             <el-input v-model="pojo.pname"></el-input>
         </el-form-item>
-        <el-form-item label="商品新旧程度" prop="item">
+        <el-form-item label="商品新旧程度" prop="level">
             <el-select v-model="pojo.level" placeholder="请选择新旧程度">
                 <el-option label="全新" value="10"></el-option>
                 <el-option label="九成新" value="9"></el-option>
@@ -60,6 +60,9 @@
 <script>
     new Vue({
         el: '#app',
+        data:{
+            code:null
+        },
         data() {
             return {
                 pojo:{
@@ -95,17 +98,17 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
                         axios.post(`http://localhost/api/product/save/`,this.pojo)
                             .then(response =>{
-                                if(response.data.status==200){
+                                if(response.data.code==200){
                                     alert("操作成功");
+                                    window.location.replace("/index");
                                 }else{
                                     alert("操作失败");
                                 }
                             });
                     } else {
-                        alert('error submit!!');
+                        alert('请输入完整的商品信息');
                         return false;
                     }
                 });

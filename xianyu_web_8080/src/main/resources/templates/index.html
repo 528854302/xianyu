@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="css/elementui.css">
 </head>
 <body style="background-color: rgb(220, 253, 253);">
 <div id="app">
@@ -14,8 +14,8 @@
                 <el-menu-item index="1"><a href="/portal/index" target="_blank"><i class="el-icon-eleme">首页</i></a></el-menu-item>
                 <el-menu-item index="2"><a href="/portal/register" target="_blank"><i class="el-icon-user">注册</i></a></el-menu-item>
                 <el-menu-item index="3"><a href="/portal/collet" target="_blank"><i class="el-icon-star-on">收藏</i></a></el-menu-item>
-                <el-menu-item v-if="username" index="4"><a href="/portal/login" target="_blank"><i class="el-icon-user-solid">欢迎 {{username}}</i></a></el-menu-item>
-                <el-menu-item v-else index="4"><a href="/portal/login" target="_blank"><i class="el-icon-user-solid">登录</i></a></el-menu-item>
+                <el-menu-item v-if="userInfo.username" index="4"><a href="/portal/login" target="_blank"><i class="el-icon-user-solid">欢迎 {{userInfo.username}}</i></a></el-menu-item>
+                <el-menu-item v-else index="4"><a href="/portal/login" target="_blank"><i class="el-icon-user-solid">请登录</i></a></el-menu-item>
             </el-menu>
             <div class="line"></div>
         </el-col>
@@ -24,7 +24,7 @@
         <el-col v-for="p in pageInfo.results" :span="4" style="margin: 10px;">
             <div style="background-color: #fcfffb; border-radius: 3%;width: 200px;height: 300px;">
                 <a :href="'http://localhost:80/portal/pinfo?pid='+p.pid">
-                    <img src="" style="width: 200px;height: 200px;border-top-left-radius: 2%;border-top-right-radius: 2%;" alt="picture">
+                    <img :src="p.image" style="width: 200px;height: 200px;border-top-left-radius: 2%;border-top-right-radius: 2%;" alt="picture">
                 </a>
                 <span style="font-size: 11px;">卖家: <a href="">Chaoge8235</a></span>
                 <p style="font-size: 12px;height: 24px;">{{p.pname}}</p>
@@ -48,11 +48,9 @@
 </div>
 </body>
 <!-- import Vue before Element -->
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<!-- import JavaScript -->
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="js/getUrlParam.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/elementui.js"></script>
+<script src="js/axios.js"></script>
 <script>
     new Vue({
         el: '#app',
@@ -75,7 +73,9 @@
                 },
                 currentPage:1,
                 pageSize:10,
-                total:10
+                total:10,
+
+                userInfo:{}
             }
         },
         methods: {
@@ -98,6 +98,11 @@
 
             axios.get('http://localhost:80/getUsername')
                 .then(Response =>(this.username = Response.data));
+
+            axios.get(`http://localhost/getUserDetail`)
+                .then(response =>{
+                    this.userInfo=response.data;
+                });
         }
     })
 </script>
