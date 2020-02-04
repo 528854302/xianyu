@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="css/elementui.css">
 </head>
 <body style="background-color: rgb(220, 253, 253);">
 <div id="app" style="background: url(http://localhost/portal/img/bg.jpg) no-repeat;width: 92%;height: 550px;background-size: cover">
     <el-row>
         <el-col :span="24">
-            <el-menu  class="el-menu-demo" mode="horizontal" @select="handleSelect">
+            <el-menu :default-active="3" class="el-menu-demo" mode="horizontal" @select="handleSelect">
                 <el-menu-item index="1"><a href="/portal/index" target="_blank"><i class="el-icon-eleme">首页</i></a></el-menu-item>
-                <el-menu-item index="2"><a href="/portal/login" target="_blank"><i class="el-icon-user-solid">登录</i></a></el-menu-item>
-                <el-menu-item index="3"><a href="/portal/register" target="_blank"><i class="el-icon-user">注册</i></a></el-menu-item>
-                <el-menu-item index="4"><a href="/portal/collet" target="_blank"><i class="el-icon-star-on">收藏</i></a></el-menu-item>
+                <el-menu-item index="2"><a href="/portal/register" target="_blank"><i class="el-icon-user">注册</i></a></el-menu-item>
+                <el-menu-item index="3"><a href="/portal/login" target="_blank"><i class="el-icon-user-solid">登录</i></a></el-menu-item>
             </el-menu>
             <div class="line"></div>
         </el-col>
@@ -39,11 +38,10 @@
 </div>
 </body>
 <!-- import Vue before Element -->
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<!-- import JavaScript -->
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="js/getUrlParam.js"></script>
+<!-- import Vue before Element -->
+<script src="js/vue.js"></script>
+<script src="js/elementui.js"></script>
+<script src="js/axios.js"></script>
 <script>
     new Vue({
         el: '#app',
