@@ -1,5 +1,6 @@
 package com.xianyu.controller;
 
+import com.xianyu.dto.Result;
 import com.xianyu.service.UserServiceImpl;
 import org.springframework.web.bind.annotation.*;
 import com.xianyu.pojo.User;
@@ -15,4 +16,8 @@ public class UserController {
         return userService.findBySno(sno);
     }
 
+    @PostMapping("/insert")
+    public Result insert(@RequestBody User user){
+        return userService.insert(user);
+    }
 }

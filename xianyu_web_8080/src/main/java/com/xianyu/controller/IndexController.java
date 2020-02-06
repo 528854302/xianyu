@@ -23,6 +23,10 @@ public class IndexController {
     public String upload(){
         return "upload";
     }
+    @GetMapping("signup")
+    public String signup(){
+        return "signup";
+    }
 
     @ResponseBody
     @PostMapping("checkUser")

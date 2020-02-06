@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/elementui.css">
 </head>
 <body style="background-color: rgb(220, 253, 253);">
-<div id="app" style="background: url(http://localhost/portal/img/bg.jpg) no-repeat;width: 92%;height: 550px;background-size: cover">
+<div id="app" style="background: url(http://localhost/portal/img/bg.jpg) no-repeat;width: 100%;height: 700px;background-size: cover">
     <el-row>
         <el-col :span="24">
             <el-menu :default-active="3" class="el-menu-demo" mode="horizontal" @select="handleSelect">
@@ -22,10 +22,10 @@
             <div>
                 <el-form action="/portal/checkUser" method="post" ref="form" :model="form" :rules="rules" label-width="80px" class="login-box">
                     <h1>请登录</h1>
-                    <el-form-item label="username" prop="username">
+                    <el-form-item label="学号" prop="username">
                         <input type="text" name="username">
                     </el-form-item>
-                    <el-form-item label="password" prop="password">
+                    <el-form-item label="密码" prop="password">
                         <input type="password" name="password">
                     </el-form-item>
                     <el-form-item>
@@ -37,8 +37,6 @@
     </el-row>
 </div>
 </body>
-<!-- import Vue before Element -->
-<!-- import Vue before Element -->
 <script src="js/vue.js"></script>
 <script src="js/elementui.js"></script>
 <script src="js/axios.js"></script>
@@ -75,7 +73,7 @@
                             },
                             transformRequest: [
                                 function (data) {
-                                    let ret = ''
+                                    let ret = '';
                                     for (let it in data) {
                                         ret +=
                                             encodeURIComponent(it) +

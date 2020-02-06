@@ -1,5 +1,6 @@
 package com.xianyu.user.service;
 
+import com.xianyu.dto.Result;
 import com.xianyu.pojo.User;
 
 public interface UserService {
@@ -9,4 +10,6 @@ public interface UserService {
     User findBySno(String sno);
 
     User selectOne(User user );
+
+    Result insert(User user);
 }

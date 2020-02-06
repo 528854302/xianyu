@@ -12,6 +12,7 @@ eureka:
       instance:
         lease-renewal-interval-in-seconds: 5 # 5秒钟发送一次心跳
         lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+    registry-fetch-interval-seconds: 5
 zuul:
   routes:
     product.serviceId: product-service
