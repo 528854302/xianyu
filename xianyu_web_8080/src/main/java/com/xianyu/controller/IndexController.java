@@ -27,6 +27,10 @@ public class IndexController {
     public String signup(){
         return "signup";
     }
+    @GetMapping("mycollect")
+    public String mycollect(){
+        return "mycollect";
+    }
 
     @ResponseBody
     @PostMapping("checkUser")

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" >
-<html>
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
@@ -63,7 +62,6 @@
                 currentPage:1,
                 pageSize:10,
                 total:10,
-
                 userInfo:{}
             }
         },
@@ -85,10 +83,8 @@
               //  .then(Response =>(this.pageInfo = Response.data));
             this.getData();
 
-            axios.get('http://localhost:80/getUsername')
-                .then(Response =>(this.username = Response.data));
 
-            axios.get(`http://localhost/getUserDetail`)
+            axios.get(`http://localhost/getUserInfo`)
                 .then(response =>{
                     this.userInfo=response.data;
                 });

@@ -26,7 +26,7 @@ public class SecurityController {
     @Autowired
     UserInfoServiceImpl userInfoService;
 
-    @GetMapping("getUserDetail")
+    @GetMapping("getUserInfo")
     public UserInfo userInfo(HttpServletRequest request,HttpServletResponse response){
         return userInfoService.getUserInfo(request,response);
     }
@@ -35,4 +35,5 @@ public class SecurityController {
     public String getUsername(){
         return userInfoService.getUserSno();
     }
+
 }

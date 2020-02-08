@@ -1,5 +1,6 @@
 package com.xianyu;
 
+import com.xianyu.mapper.PcollectMapper;
 import com.xianyu.mapper.ProductMapper;
 import com.xianyu.pojo.Product;
 import com.xianyu.product.service.ProductService;
@@ -18,19 +19,11 @@ import java.util.Date;
 public class Test {
     @Autowired
     ProductMapper mapper;
+
+    @Autowired
+    ProductService service;
     @org.junit.Test
     public void test(){
-        Product product= new Product();
-        product.setPid("123456");
-        product.setSno("2017101866");
-        product.setPname("sada");
-        product.setTime(new Date());
-        product.setLevel(8);
-        product.setCategory(1);
-        product.setDisplay(1);
-        product.setImage("aaaa");
-        product.setPrice(20.0);
-        int i= mapper.insert(product);
-        System.out.println("****************"+i);
+        System.out.println(service.findCollect("2017101866"));
     }
 }

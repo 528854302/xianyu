@@ -2,6 +2,7 @@ package com.xianyu.product.service;
 
 import com.xianyu.dto.Result;
 import com.xianyu.pojo.PageResult;
+import com.xianyu.pojo.Pcollect;
 import com.xianyu.pojo.Product;
 
 import java.util.List;
@@ -14,4 +15,8 @@ public interface ProductService {
     PageResult<Product> findpage(int page, int size);
 
     Result save(Product product);
+
+    Result collect(String sno,String pid);
+
+    List<Pcollect> findCollect(String sno);
 }
