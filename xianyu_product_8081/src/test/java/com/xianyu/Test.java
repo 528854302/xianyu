@@ -8,20 +8,26 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.StringUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class Test {
     @Autowired
-    PmessageService pmessageService;
+    PmessageDtoMapper mapper;
 
     @org.junit.Test
     public void test(){
-        List<PmessageDto> ps = pmessageService.findMessageByPid("01", null);
-        for (PmessageDto p: ps){
+        List<PmessageDto> ps= mapper.getMessageByParentId("4");
+        for (PmessageDto p : ps){
             System.out.println(p.getContent());
         }
     }
+
 }

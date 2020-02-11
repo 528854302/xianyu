@@ -23,17 +23,29 @@
         </el-col>
     </el-row>
     <h3>留言</h3>
-    <hr>
-    <div v-for="m in messages">
-        &nbsp;&nbsp;
-        <a class="el-icon-user-solid" :href="'/portal/findUser/'+m.sno">{{m.username}}</a>:
-        <span>{{m.content}}</span>
-        <el-button type="text" class="el-icon-edit" @click="anwser(m.id)">回复</el-button>
-        <el-button type="text" class="el-icon-share">展开</el-button>
-        <el-button type="text" class="el-icon-delete">删除</el-button>
-        <span style="float: right;">{{m.time}}</span>
-        <hr>
-    </div>
+    <el-collapse accordion @change="handleChange">
+        <el-collapse-item :name="m.id" v-for="m in messages">
+            <template slot="title">
+                &nbsp;&nbsp;
+                <a class="el-icon-user-solid" :href="'/portal/findUser/'+m.sno">{{m.username}}</a>:
+                <span>{{m.content}}</span>
+                <el-button type="text" class="el-icon-edit" @click="anwser(m.id,m.username)">回复</el-button>
+                <el-button type="text" class="el-icon-share">展开</el-button>
+                <el-button type="text" class="el-icon-delete">删除</el-button>
+                <span style="float: right;">{{m.time}}</span>
+                <hr>
+            </template>
+
+            <div v-for="m in secondMessages">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="el-icon-user-solid" :href="'/portal/findUser/'+m.sno">{{m.username}}</a>:
+                <span>{{m.content}}</span>
+                <el-button type="text" class="el-icon-edit">回复</el-button>
+                <el-button type="text" class="el-icon-delete">删除</el-button>
+                <span style="float: right;">{{m.time}}</span>
+            </div>
+            <hr>
+        </el-collapse-item>
+    </el-collapse>
 
     <el-row>
         <el-col :span="18">
@@ -80,11 +92,7 @@
                 userInfo:{},
                 textarea: null,
                 messages:[{}],
-                params:{
-                    sno:null,
-                    pid:null,
-                    content:null
-                }
+                secondMessages:[{}]
             }
         },
         methods: {
@@ -110,16 +118,16 @@
                 }
             },
             getMessage(){
-                axios.get(`/api/product/getMessage/${this.pid}/''/`)
+                axios.get(`/api/product/getMessage/`+getQueryVariable("pid")+`/1/`)
                     .then(res => {
                         this.messages=res.data;
                     });
             },
-            anwser(id){
-                if (this.userInfo==null){
+            anwser(id,username){
+                if (this.userInfo.sno==null||this.userInfo.sno==""){
                     alert("请先登录");
-                }{
-
+                    window.location.replace("/portal/login");
+                }else {
                     this.$prompt('请输入回复内容', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
@@ -127,15 +135,28 @@
                         if (value==null || value==''){
                             alert("评论内容不能为空")
                         }else {
-
-                            axios.get(`/api/product/anwser/${id}/${this.user.sno}/`+value)
+                            axios({
+                                method:'post',
+                                url:'/api/product/leaveMessage',
+                                data: {
+                                    sno: this.userInfo.sno,
+                                    pid: this.product.pid,
+                                    content: '@'+username+': '+value,
+                                    parentid: id
+                                }
+                            })
                                 .then(res => {
-                                    this.messages=res.data;
+                                    if (res.data.code == 200){
+                                        this.getMessage();
+                                        this.getScondMessage(id);
+                                        this.$message({
+                                            type: 'success',
+                                            message: '回复成功'
+                                        });
+                                    } else {
+                                        alert(res.data.message);
+                                    }
                                 });
-                            this.$message({
-                                type: 'success',
-                                message: '回复成功'
-                            });
                         }
                     }).catch(() => {
                         this.$message({
@@ -143,7 +164,6 @@
                             message: '取消输入'
                         });
                     });
-
                 }
             },
             leaveMessage(){
@@ -156,7 +176,16 @@
                     this.params.sno=this.userInfo.sno;
                     this.params.pid=this.product.pid;
                     this.params.content=this.textarea;
-                    axios.post(`/api/product/leaveMessage/`,this.params)
+                    axios({
+                        method:'post',
+                        url:'/api/product/leaveMessage',
+                        data: {
+                            sno: this.userInfo.sno,
+                            pid: this.product.pid,
+                            content: this.textarea,
+                            parentid: 0
+                        }
+                    })
                         .then(res => {
                             if (res.data.code == 200){
                                 this.getMessage();
@@ -166,20 +195,28 @@
                         })
                 }
             },
-
-
+            //展开二级回复 val为留言的父id
+            handleChange(val) {
+                this.getSecondMessage(val);
+            },
+            getSecondMessage(id){
+                axios.get(`/api/product/getMessageByParentId/`+id)
+                    .then(res => {
+                        this.secondMessages=res.data;
+                    });
+            }
         },
         mounted(){//页面初始化方法
             var pid = getQueryVariable("pid");
             axios.get('/api/product/findById/'+pid)
-                .then(Response =>(this.product = Response.data));
+                .then(Response =>(
+                    this.product = Response.data
+                    ));
             axios.get('/getUserInfo')
                 .then(Response =>(this.userInfo = Response.data));
             this.getMessage();
         }
     })
-
-
 
 </script>
 </html>

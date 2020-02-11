@@ -1,6 +1,5 @@
 package com.xianyu.controller;
 
-import com.xianyu.dto.AnwserDto;
 import com.xianyu.dto.PmessageDto;
 import com.xianyu.dto.ProductCollectDTO;
 import com.xianyu.dto.Result;
@@ -62,12 +61,18 @@ public class ProductController {
         return productService.removeCollected(sno,pid);
     }
     @PostMapping("/leaveMessage")
-    public Result leaveMessage(@RequestBody AnwserDto anwserDto){
-        return messageService.leaveMessage(anwserDto);
+    public Result leaveMessage(@RequestBody Map map){
+
+        return messageService.leaveMessage((String) map.get("sno"),(String) map.get("pid"),
+                (String) map.get("content"),(String)map.get("parentid"));
     }
     @GetMapping("/getMessage/{pid}/{grade}")
     public List<PmessageDto> getMessage(@PathVariable("pid") String pid,
                                         @PathVariable("grade") String grade){
         return messageService.findMessageByPid(pid,grade);
+    }
+    @GetMapping("/getMessageByParentId/{parentid}")
+    public List<PmessageDto> getMessageByParentId(@PathVariable("parentid") String parentid){
+        return messageService.getMessageByParentId(parentid);
     }
 }
