@@ -63,8 +63,8 @@ public class ProductController {
     @PostMapping("/leaveMessage")
     public Result leaveMessage(@RequestBody Map map){
 
-        return messageService.leaveMessage((String) map.get("sno"),(String) map.get("pid"),
-                (String) map.get("content"),(String)map.get("parentid"));
+        return messageService.leaveMessage(map.get("sno").toString(),map.get("pid").toString(),
+                map.get("content").toString(),map.get("parentid").toString());
     }
     @GetMapping("/getMessage/{pid}/{grade}")
     public List<PmessageDto> getMessage(@PathVariable("pid") String pid,

@@ -24,9 +24,9 @@ public class Test {
 
     @org.junit.Test
     public void test(){
-        List<PmessageDto> ps= mapper.getMessageByParentId("4");
+        List<PmessageDto> ps= mapper.findMessageByPid("01","1");
         for (PmessageDto p : ps){
-            System.out.println(p.getContent());
+            System.out.println(p.getTime());
         }
     }
 
