@@ -67,7 +67,6 @@
                 activeIndex: '5',
                 userInfo:{},
                 pojo:{
-                    sno:2017101866
                 },
                 imageUrl:'',
                 rules: {
@@ -103,7 +102,7 @@
                             .then(response =>{
                                 if(response.data.code==200){
                                     alert("操作成功");
-                                    window.location.replace("/index");
+                                    window.location.replace("/portal/index");
                                 }else{
                                     alert("操作失败");
                                 }
