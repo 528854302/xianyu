@@ -31,6 +31,11 @@ public class IndexController {
     public String mycollect(){
         return "mycollect";
     }
+    @GetMapping("mypage")
+    public String mypage(){
+        return "mypage";
+    }
+
 
     @ResponseBody
     @PostMapping("checkUser")

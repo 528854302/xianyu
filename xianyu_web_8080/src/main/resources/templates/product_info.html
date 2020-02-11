@@ -31,7 +31,7 @@
                 <span>{{m.content}}</span>
                 <el-button type="text" class="el-icon-edit" @click="anwser(m.id,m.username)">回复</el-button>
                 <el-button type="text" class="el-icon-share">展开</el-button>
-                <el-button type="text" class="el-icon-delete" @click="deleteMessage(m.id)">删除</el-button>
+                <el-button type="text" class="el-icon-delete" @click="deleteMessage(m.id,m.sno,m.grade)">删除</el-button>
                 <span style="float: right;">{{m.time}}</span>
                 <hr>
             </template>
@@ -40,7 +40,7 @@
                 <a class="el-icon-user-solid" :href="'/portal/findUser/'+m.sno">{{m.username}}</a>:
                 <span>{{m.content}}</span>
                 <el-button type="text" class="el-icon-edit" @click="anwser(m.id,m.username)">回复</el-button>
-                <el-button type="text" class="el-icon-delete" @click="deleteMessage(m.id,m.sno)">删除</el-button>
+                <el-button type="text" class="el-icon-delete" @click="deleteMessage(m.id,m.sno,m.grade)">删除</el-button>
                 <span style="float: right;">{{m.time}}</span>
             </div>
             <hr>
@@ -100,17 +100,19 @@
                 console.log(key, keyPath);
             },
             buy(){
-                location.href="/buy?pid="+this.product.pid+"&sno="+this.product.sno;
+                //location.href="/buy?pid="+this.product.pid+"&sno="+this.product.sno;
+                alert("功能暂未开放，请尝试收藏，发布闲置或者留言功能");
             },
             collect(){
                 if (this.userInfo.sno == ''||this.userInfo.sno == null){
                     alert("请先登录");
                     window.location.replace("/portal/login");
                 }else {
-                    axios.get(`/api/product/collect/${this.userInfo.sno}/${this.product.pid}/${this.textarea}`)
+                    axios.get(`/api/product/collect/${this.userInfo.sno}/${this.product.pid}/`)
                         .then(response => {
                             if (response.data.code ==200){
                                 alert(response.data.message);
+                                window.location.replace("/portal/mycollect");
                             } else {
                                 alert(response.data.message);
                             }
@@ -203,13 +205,18 @@
                         this.secondMessages=res.data;
                     });
             },
-            deleteMessage(id,sno){
+            deleteMessage(id,sno,grade){
                 if (this.userInfo.sno==sno || this.userInfo.sno==this.product.sno){
-                    axios.get(`/api/product/deleteMessageById`+id)
+                    axios.get(`/api/product/deleteMessageById/`+id)
                         .then(res => {
                             if (res.data.code==200){
                                 alert(res.data.message);
-                                this.getMessage();
+                                if (grade==1){
+                                    this.getMessage();
+                                }
+                                if (grade==2){
+                                    this.getSecondMessage(id);
+                                }
                             }else {
                                 alert(res.data.message);
                             }

@@ -20,14 +20,11 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 public class Test {
     @Autowired
-    PmessageDtoMapper mapper;
+    PmessageMapper mapper;
 
     @org.junit.Test
     public void test(){
-        List<PmessageDto> ps= mapper.findMessageByPid("01","1");
-        for (PmessageDto p : ps){
-            System.out.println(p.getTime());
-        }
+
     }
 
 }

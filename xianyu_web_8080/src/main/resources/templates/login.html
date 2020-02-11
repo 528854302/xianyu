@@ -11,7 +11,7 @@
         <el-col :span="24">
             <el-menu :default-active="3" class="el-menu-demo" mode="horizontal" @select="handleSelect">
                 <el-menu-item index="1"><a href="/portal/index" ><i class="el-icon-eleme">首页</i></a></el-menu-item>
-                <el-menu-item index="2"><a href="/portal/register" ><i class="el-icon-user">注册</i></a></el-menu-item>
+                <el-menu-item index="2"><a href="/portal/signup" ><i class="el-icon-user">注册</i></a></el-menu-item>
                 <el-menu-item index="3"><a href="/portal/login"><i class="el-icon-user-solid">登录</i></a></el-menu-item>
             </el-menu>
             <div class="line"></div>
@@ -67,7 +67,7 @@
                         alert("ss");
                         axios({
                             method: 'post',
-                            url: 'http://localhost/portal/checkUser',
+                            url: '/portal/checkUser',
                             data: {
                                 username: this.form.username,
                                 password: this.form.password

@@ -38,7 +38,7 @@
         <el-form-item label="商品图片" prop="image">
             <el-upload
                     class="avatar-uploader"
-                    action="http://localhost/portal/upload"
+                    action="/portal/upload"
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess"
                     :before-upload="beforeAvatarUpload">
@@ -99,7 +99,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        axios.post(`http://localhost/api/product/save/`,this.pojo)
+                        axios.post(`/api/product/save/`,this.pojo)
                             .then(response =>{
                                 if(response.data.code==200){
                                     alert("操作成功");
@@ -136,7 +136,7 @@
             }
         },
         mounted(){//页面初始化方法
-            axios.get(`http://localhost/getUserInfo`)
+            axios.get(`/getUserInfo`)
                 .then(response =>{
                     this.userInfo=response.data;
                 });

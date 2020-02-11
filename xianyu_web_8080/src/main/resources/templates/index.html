@@ -11,7 +11,7 @@
     <el-row >
         <el-col v-for="p in pageInfo.results" :span="4" style="margin: 10px;">
             <div style="background-color: #fcfffb; border-radius: 3%;width: 200px;height: 300px;">
-                <a :href="'http://localhost:80/portal/pinfo?pid='+p.pid">
+                <a :href="'/portal/pinfo?pid='+p.pid">
                     <img :src="p.image" style="width: 200px;height: 200px;border-top-left-radius: 2%;border-top-right-radius: 2%;" alt="picture">
                 </a>
                 <span style="font-size: 11px;">卖家: <a href="">{{p.sno}}</a></span>
@@ -71,7 +71,7 @@
             },
             getData(){
                 //注意此处反单引号
-                axios.get(`http://localhost:80/api/product/findPage/${this.currentPage}/${this.pageSize}`)
+                axios.get(`/api/product/findPage/${this.currentPage}/${this.pageSize}`)
                     .then((respronse)=>{
                        this.pageInfo = respronse.data;
                        this.total = respronse.data.total;
@@ -84,7 +84,7 @@
             this.getData();
 
 
-            axios.get(`http://localhost/getUserInfo`)
+            axios.get(`/getUserInfo`)
                 .then(response =>{
                     this.userInfo=response.data;
                 });
