@@ -1,9 +1,14 @@
 package com.xianyu.controller;
 
+import com.xianyu.dto.AnwserDto;
+import com.xianyu.dto.PmessageDto;
+import com.xianyu.dto.ProductCollectDTO;
 import com.xianyu.dto.Result;
 import com.xianyu.pojo.PageResult;
 import com.xianyu.pojo.Pcollect;
+import com.xianyu.pojo.Pmessage;
 import com.xianyu.pojo.Product;
+import com.xianyu.product.service.PmessageService;
 import com.xianyu.product.service.ProductService;
 import com.xianyu.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +17,15 @@ import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ProductController {
     @Autowired
     ProductServiceImpl productService;
+    @Autowired
+    PmessageService messageService;
+
     @GetMapping("/findAll")
     public List<Product> findAll(){
         return productService.findAll();
@@ -38,8 +47,8 @@ public class ProductController {
         return productService.collect(sno,pid);
     }
     @GetMapping("/getCollect/{sno}")
-    public List<Pcollect> getCollect(@PathVariable("sno") String sno){
-        return productService.findCollect(sno);
+    public List<ProductCollectDTO> getCollect(@PathVariable("sno") String sno){
+        return productService.findCollectBySno(sno);
     }
 
     @PostMapping("/save")
@@ -47,4 +56,18 @@ public class ProductController {
         return productService.save(product);
     }
 
+    @GetMapping("/removeCollected/{sno}/{pid}")
+    public Result removeCollected(@PathVariable("sno") String sno,
+                                  @PathVariable("pid") String pid){
+        return productService.removeCollected(sno,pid);
+    }
+    @PostMapping("/leaveMessage")
+    public Result leaveMessage(@RequestBody AnwserDto anwserDto){
+        return messageService.leaveMessage(anwserDto);
+    }
+    @GetMapping("/getMessage/{pid}/{grade}")
+    public List<PmessageDto> getMessage(@PathVariable("pid") String pid,
+                                        @PathVariable("grade") String grade){
+        return messageService.findMessageByPid(pid,grade);
+    }
 }

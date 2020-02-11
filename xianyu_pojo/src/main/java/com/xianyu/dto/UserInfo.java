@@ -7,7 +7,7 @@ public class UserInfo {
     private String username;
     private String phonenumber;
     private String realname;
-    private String adress;
+    private String adrress;
     private String marjoy;
     private Float balance;
     public UserInfo(User user){
@@ -15,7 +15,7 @@ public class UserInfo {
         this.username=user.getUsername();
         this.phonenumber=user.getPhonenumber();
         this.realname=user.getRealname();
-        this.adress=user.getAdress();
+        this.adrress=user.getAdress();
         this.balance=user.getBalance();
         this.marjoy=user.getMarjoy();
     }
@@ -52,12 +52,12 @@ public class UserInfo {
         this.realname = realname;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAdrress() {
+        return adrress;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAdrress(String adrress) {
+        this.adrress = adrress;
     }
 
     public String getMarjoy() {

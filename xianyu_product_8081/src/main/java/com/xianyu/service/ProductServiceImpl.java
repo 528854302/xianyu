@@ -2,7 +2,9 @@ package com.xianyu.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.xianyu.dto.ProductCollectDTO;
 import com.xianyu.dto.Result;
+import com.xianyu.mapper.PcollectDao;
 import com.xianyu.mapper.PcollectMapper;
 import com.xianyu.mapper.ProductMapper;
 import com.xianyu.pojo.CommonCode;
@@ -10,6 +12,7 @@ import com.xianyu.pojo.PageResult;
 import com.xianyu.pojo.Pcollect;
 import com.xianyu.pojo.Product;
 import com.xianyu.product.service.ProductService;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.javassist.bytecode.LineNumberAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +34,11 @@ public class ProductServiceImpl implements ProductService {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     PcollectMapper collectMapper;
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired
+    PcollectDao pcollectDao;
+
+
 
     @Override
     public List<Product> findAll() {
@@ -82,18 +90,25 @@ public class ProductServiceImpl implements ProductService {
         pcollect.setId(UUID.randomUUID().toString().substring(0,10));
         pcollect.setTime(new Date());
         if (collectMapper.insert(pcollect)>0){
-            return new Result();
+            return new Result(200,"收藏成功");
         }
         return new Result(404,"操作失败");
     }
 
+    @Override
+    public List<ProductCollectDTO> findCollectBySno(String sno) {
+        return pcollectDao.findCollect(sno);
+    }
 
     @Override
-    public List<Pcollect> findCollect(String sno) {
-
-        Example example = new Example(Pcollect.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("sno",sno);
-        return collectMapper.selectByExample(example);
+    public Result removeCollected(String sno, String pid) {
+        if (collectMapper.delete(new Pcollect(sno,pid))>0){
+            return new Result();
+        }
+        else {
+            return new Result(404,"操作失败");
+        }
     }
+
+
 }

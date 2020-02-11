@@ -15,14 +15,5 @@
         <module name="xianyu_web_8080" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="xianyu_auth_8087" target="1.8" />
-      <module name="xianyu_gateway" target="1.8" />
-      <module name="xianyu_item" target="1.8" />
-      <module name="xianyu_item_interface" target="1.8" />
-      <module name="xianyu_item_service" target="1.8" />
-      <module name="xianyu_product" target="1.8" />
-      <module name="xianyucommon" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

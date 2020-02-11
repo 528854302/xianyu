@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/portal/signup","/portal/upload","/portal/img/**","/portal/css/**",
+        http.authorizeRequests().antMatchers("/portal/","/portal/signup","/portal/upload","/portal/img/**","/portal/css/**",
                 "/portal/js/**","/portal/checkUser","/api/**"
                 ,"/portal/login","/portal/index","/portal/pinfo")
                 .permitAll()

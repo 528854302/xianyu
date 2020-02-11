@@ -11,6 +11,8 @@
 
     <groupId>com.xianyu.product</groupId>
     <artifactId>xianyu_product_8081</artifactId>
+
+
     <dependencies>
         <dependency>
             <groupId>com.xianyu.common_service</groupId>
@@ -22,6 +24,5 @@
             <artifactId>xianyu_interface</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
     </dependencies>
 </project>

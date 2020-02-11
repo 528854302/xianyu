@@ -8,6 +8,7 @@
 </head>
 <body style="background-color: rgb(220, 253, 253);">
 <div id="app">
+    <div th:include="header.html :: header"></div>
     <el-form ref="form" :rules="rules" :model="pojo" label-width="80px" class="demo-ruleForm">
         <el-form-item label="商品名称" prop="pname">
             <el-input v-model="pojo.pname"></el-input>
@@ -63,6 +64,8 @@
         },
         data() {
             return {
+                activeIndex: '5',
+                userInfo:{},
                 pojo:{
                     sno:2017101866
                 },
@@ -133,7 +136,10 @@
             }
         },
         mounted(){//页面初始化方法
-
+            axios.get(`http://localhost/getUserInfo`)
+                .then(response =>{
+                    this.userInfo=response.data;
+                });
         }
     })
 </script>
