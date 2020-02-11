@@ -75,4 +75,8 @@ public class ProductController {
     public List<PmessageDto> getMessageByParentId(@PathVariable("parentid") String parentid){
         return messageService.getMessageByParentId(parentid);
     }
+    @GetMapping("/deleteMessageById/{id}")
+    public Result deleteMessageById(@PathVariable("id") String id){
+        return messageService.deleteMessageById(id);
+    }
 }
