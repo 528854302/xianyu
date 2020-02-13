@@ -8,11 +8,14 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://120.25.255.82:10086/eureka
+      defaultZone: http://localhost:10086/eureka/
       instance:
         lease-renewal-interval-in-seconds: 5 # 5秒钟发送一次心跳
         lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
     registry-fetch-interval-seconds: 5
+    register-with-eureka: false
+    fetch-registry: true
+
 zuul:
   routes:
     product.serviceId: product-service
