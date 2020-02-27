@@ -35,6 +35,16 @@ public class IndexController {
     public String mypage(){
         return "mypage";
     }
+    @GetMapping("pay")
+    public String pay(){ return "pay"; }
+    @GetMapping("order")
+    public String order(){
+        return "order";
+    }
+    @GetMapping("myorder")
+    public String myorder(){
+        return "myorder";
+    }
 
 
     @ResponseBody

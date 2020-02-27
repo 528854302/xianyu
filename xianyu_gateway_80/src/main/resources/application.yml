@@ -5,6 +5,7 @@ spring:
     name: gateway
   thymeleaf:
     cache: false
+
 eureka:
   client:
     service-url:
@@ -13,22 +14,35 @@ eureka:
         lease-renewal-interval-in-seconds: 5 # 5秒钟发送一次心跳
         lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
     registry-fetch-interval-seconds: 5
-    register-with-eureka: false
+    register-with-eureka: true
     fetch-registry: true
 
 zuul:
   routes:
-    product.serviceId: product-service
-    product.path: /api/product/**    #将服务名改一个名字代替服务名
-    portal.serviceId: portal-service
-    portal.path: /portal/**    #将服务名改一个名字代替服务名
-    user.serviceId: user-service
-    user.path: /api/user/**
+    user-service: /api/user/**
+    portal-service: /portal/**
+    product-service: /api/product/**
+    order-service: /api/order/**
   ignored-services: "*"    #隐藏所有真实微服务路径
   host:
     connect-timeout-millis: 3000
     socket-timeout-millis: 3000
-  ribbon:
-    ReadTimeout: 60000
-    ConnectTimeout: 60000
+#负载均衡的设置
+ribbon:
+  ConnectTimeout: 250 # 连接超时时间(ms)
+  ReadTimeout: 2000 # 通信超时时间(ms)
+  OkToRetryOnAllOperations: true # 是否对所有操作重试
+  MaxAutoRetriesNextServer: 1 # 同一服务不同实例的重试次数
+  MaxAutoRetries: 1 # 同一实例的重试次数
 
+#熔断机制
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000 # 熔断超时时长：10000ms
+feign:
+  hystrix:
+    enabled: true

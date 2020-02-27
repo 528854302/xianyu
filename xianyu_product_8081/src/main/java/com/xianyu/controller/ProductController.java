@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 public class ProductController {
     @Autowired
-    ProductServiceImpl productService;
+    ProductService productService;
     @Autowired
     PmessageService messageService;
 
@@ -78,5 +78,9 @@ public class ProductController {
     @GetMapping("/deleteMessageById/{id}")
     public Result deleteMessageById(@PathVariable("id") String id){
         return messageService.deleteMessageById(id);
+    }
+    @RequestMapping
+    public int update(@RequestBody Product product){
+        return productService.update(product);
     }
 }

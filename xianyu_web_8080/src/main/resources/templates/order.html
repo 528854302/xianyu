@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>订单</title>
+    <link rel="stylesheet" href="css/elementui.css">
+    <link rel="stylesheet" href="css/fonts/element-icons.ttf">
+</head>
+<body style="background-color: rgb(220, 253, 253);">
+<div id="app">
+    <div th:include="header.html :: header"></div>
+    <el-row>
+        <el-col :span="6">
+            <img :src="product.image" alt="商品图片" width="200px" height="200px">
+        </el-col>
+        <el-col :span="6">
+            <h3>{{product.pname}}</h3>
+        </el-col>
+        <el-col :span="6">
+            <h2 style="color: orangered">价格：￥{{product.price}} 元</h2>
+        </el-col>
+        <el-col :span="6">
+            <h5>卖家：{{product.sno}}</h5>
+        </el-col>
+    </el-row>
+    <el-form :label-position="labelPosition" label-width="80px" :model="order">
+        <el-form-item label="收货姓名">
+            <el-input v-model="order.name"></el-input>
+        </el-form-item>
+        <el-form-item label="收货地址">
+            <el-input v-model="order.address"></el-input>
+        </el-form-item>
+        <el-form-item label="收货电话">
+            <el-input v-model="order.phone"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="commitOrder">提交订单</el-button>
+            <el-button>取消</el-button>
+        </el-form-item>
+    </el-form>
+
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="js/vue.js"></script>
+<script src="js/elementui.js"></script>
+<script src="js/axios.js"></script>
+<script src="js/getUrlParam.js"></script>
+<script>
+    let id = 1000;
+    new Vue({
+        el: '#app',
+        data:{
+        }
+        ,
+        data() {
+            return {
+                labelPosition: 'right',
+                order:{
+                    pid:null,
+                    sno:null,
+                    name:null,
+                    address:null,
+                    phone:null,
+                    total:null
+                },
+                activeNames: ['1'],
+                activeIndex: '1',
+                product:{
+                    pid:null,
+                    pname:null,
+                    level:null,
+                    price:null,
+                    category:null,
+                    pinfo:null,
+                    image:null,
+                    time:null,
+                    sno:null
+                },
+                userInfo:{}
+            }
+        },
+        methods: {
+            handleChange(val) {
+                alert(val);
+            },
+            commitOrder(){
+                this.order.pid=this.product.pid;
+                this.order.sno=this.userInfo.sno;
+                this.order.total=this.product.price;
+                axios.post(`/api/order/insert`,this.order).then(res=>{
+                    if (res.data.code==200){
+                        var orderId = res.data.returnData;
+                        alert("提交成功，订单号为:"+orderId);
+                        window.location.replace("/portal/pay?id="+orderId);
+                    }else {
+                        alert(res.data.message);
+                    }
+                });
+            },
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
+            }
+        },
+        mounted(){//页面初始化方法
+            var pid = getQueryVariable("pid");
+            axios.get('/api/product/findById/'+pid)
+                .then(Response =>{
+                    this.product = Response.data;
+                });
+            axios.get('/getUserInfo')
+                .then(Response =>{
+                    this.userInfo = Response.data;
+                });
+        }
+    })
+
+
+
+</script>
+<style>
+    .el-table .warning-row {
+        background: oldlace;
+    }
+
+    .el-table .success-row {
+        background: #f0f9eb;
+    }
+</style>
+</html>

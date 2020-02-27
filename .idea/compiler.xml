@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="xianyu_gateway_80" />
         <module name="xianyu_interface" />
+        <module name="xianyu_order_8083" />
         <module name="xianyu_pojo" />
         <module name="xianyu_product_8081" />
         <module name="xianyu_registry_10086" />

@@ -15,9 +15,6 @@ import java.util.ArrayList;
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
     UserClient userClient;
-
-
-
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userClient.selectBySno(s);

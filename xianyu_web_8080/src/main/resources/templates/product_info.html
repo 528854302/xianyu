@@ -100,13 +100,17 @@
                 console.log(key, keyPath);
             },
             buy(){
-                //location.href="/buy?pid="+this.product.pid+"&sno="+this.product.sno;
-                alert("功能暂未开放，请尝试收藏，发布闲置或者留言功能");
+                if (this.userInfo.username==null){
+                    alert("请先登录");
+                    window.location.replace("/portal/login");
+                } {
+                    window.location.replace("/portal/order?pid="+this.product.pid);
+                }
             },
             collect(){
                 if (this.userInfo.sno == ''||this.userInfo.sno == null){
                     alert("请先登录");
-                    window.location.replace("/portal/login");
+                    window.location.replace("/portal/login?pid=");
                 }else {
                     axios.get(`/api/product/collect/${this.userInfo.sno}/${this.product.pid}/`)
                         .then(response => {

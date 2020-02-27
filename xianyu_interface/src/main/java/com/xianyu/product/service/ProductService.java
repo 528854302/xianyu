@@ -23,4 +23,5 @@ public interface ProductService {
 
     Result removeCollected(String sno,String pid);
 
+    int update(Product product);
 }

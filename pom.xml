@@ -18,6 +18,7 @@
         <module>xianyu_web_8080</module>
         <module>xianyu_gateway_80</module>
         <module>xianyu_user_8082</module>
+        <module>xianyu_order_8083</module>
     </modules>
 
     <name>xianyu</name>

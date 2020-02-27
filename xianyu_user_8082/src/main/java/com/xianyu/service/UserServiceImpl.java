@@ -2,6 +2,7 @@ package com.xianyu.service;
 
 import com.xianyu.dto.Result;
 import com.xianyu.mapper.UserMapper;
+import com.xianyu.pojo.Order;
 import com.xianyu.pojo.User;
 import com.xianyu.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,11 @@ public class UserServiceImpl implements UserService {
             return new Result(404,"新增用户失败");
         }
         return new Result();
+    }
+
+    @Override
+    public int update(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
     }
 
 

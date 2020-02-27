@@ -1,6 +1,7 @@
 package com.xianyu.user.client;
 
 import com.xianyu.dto.Result;
+import com.xianyu.pojo.Order;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -16,5 +17,8 @@ public interface UserClient {
 
     @RequestMapping("/insert")
     Result insert(@RequestBody User user);
+
+    @RequestMapping("/update")
+    int updateByPrimarykey(@RequestBody User user);
 
 }

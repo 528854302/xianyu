@@ -39,7 +39,6 @@ public class ProductServiceImpl implements ProductService {
     PcollectDao pcollectDao;
 
 
-
     @Override
     public List<Product> findAll() {
         return productMapper.selectAll();
@@ -108,6 +107,11 @@ public class ProductServiceImpl implements ProductService {
         else {
             return new Result(404,"操作失败");
         }
+    }
+
+    @Override
+    public int update(Product product) {
+        return productMapper.updateByPrimaryKeySelective(product);
     }
 
 
