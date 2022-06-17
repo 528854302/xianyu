@@ -44,7 +44,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.58</version>
+            <version>1.2.83</version>
         </dependency>
         <!-- springboot提供微服务检测接口，默认对外提供几个接口 -->
         <dependency>
